@@ -1,55 +1,69 @@
 use starknet::{ContractAddress};
 
-#[derive(Copy, Drop, Serde, Debug)]
-#[dojo::model]
-pub struct Moves {
-    #[key]
-    pub player: ContractAddress,
-    pub remaining: u8,
-    pub last_direction: Option<Direction>,
-    pub can_move: bool,
-}
-
-#[derive(Drop, Serde, Debug)]
-#[dojo::model]
-pub struct DirectionsAvailable {
-    #[key]
-    pub player: ContractAddress,
-    pub directions: Array<Direction>,
-}
-
-#[derive(Copy, Drop, Serde, Debug)]
-#[dojo::model]
-pub struct Position {
-    #[key]
-    pub player: ContractAddress,
-    pub vec: Vec2,
-}
-
-
-#[derive(Serde, Copy, Drop, Introspect, PartialEq, Debug)]
-pub enum Direction {
-    Left,
-    Right,
-    Up,
-    Down,
-}
-
-
 #[derive(Copy, Drop, Serde, IntrospectPacked, Debug)]
 pub struct Vec2 {
     pub x: u32,
     pub y: u32
 }
 
+#[derive(Serde, Copy, Drop, Introspect, PartialEq, Debug)]
+pub enum Direction {
+    Up,
+    UpLeft,
+    Left,
+    DownLeft,
+    Down,
+    DownRight,
+    Right,
+    UpRight
+}
+
+#[derive(Copy, Drop, Serde, Debug)]
+#[dojo::model]
+pub struct PlayerPosition {
+    #[key]
+    pub player: ContractAddress,
+    pub vec: Vec2,
+}
+
+#[derive(Copy, Drop, Serde, Debug)]
+#[dojo::model]
+pub struct PlayerState {
+    #[key]
+    pub player: ContractAddress,
+    pub state: bool,
+}
+
+#[derive(Copy, Drop, Serde, Debug)]
+#[dojo::model]
+pub struct Enemy {
+    #[key]
+    pub player: ContractAddress,
+    pub enemy_count: u8,
+    pub enemies: Array<Enemy>
+}
+
+#[derive(Copy, Drop, Serde, Debug)]
+#[dojo::model]
+pub struct EnemyPosition {
+    #[key]
+    pub player: ContractAddress,
+    #[key]
+    pub enemy: u32,
+    pub vec: Vec2,
+}
 
 impl DirectionIntoFelt252 of Into<Direction, felt252> {
     fn into(self: Direction) -> felt252 {
         match self {
-            Direction::Left => 1,
-            Direction::Right => 2,
-            Direction::Up => 3,
-            Direction::Down => 4,
+            Direction::Up => 1,
+            Direction::UpLeft => 2,
+            Direction::Left => 3,
+            Direction::DownLeft => 4,
+            Direction::Down => 5,
+            Direction::DownRight => 6,
+            Direction::Right => 7,
+            Direction::UpRight => 8
         }
     }
 }
@@ -74,21 +88,5 @@ impl Vec2Impl of Vec2Trait {
 
     fn is_equal(self: Vec2, b: Vec2) -> bool {
         self.x == b.x && self.y == b.y
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::{Position, Vec2, Vec2Trait};
-
-    #[test]
-    fn test_vec_is_zero() {
-        assert(Vec2Trait::is_zero(Vec2 { x: 0, y: 0 }), 'not zero');
-    }
-
-    #[test]
-    fn test_vec_is_equal() {
-        let position = Vec2 { x: 420, y: 0 };
-        assert(position.is_equal(Vec2 { x: 420, y: 0 }), 'not equal');
     }
 }
