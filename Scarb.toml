@@ -1,6 +1,6 @@
 [package]
 cairo-version = "=2.8.4"
-name = "dojo_starter"
+name = "windstark"
 version = "1.0.9"
 
 [cairo]
@@ -13,6 +13,7 @@ move = "sozo execute dojo_starter-actions move -c 1 --wait" # scarb run move
 
 [dependencies]
 dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.9" }
+pragma_lib = { git = "https://github.com/astraly-labs/pragma-lib" }
 
 [[target.starknet-contract]]
 build-external-contracts = ["dojo::world::world_contract::world"]
