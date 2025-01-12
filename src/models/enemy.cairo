@@ -1,5 +1,5 @@
 use starknet::ContractAddress;
-use starknet::Storage::Map;
+use starknet::storage::Map;
 use super::coordinates::Coordinates;
 
 #[derive(Copy, Drop, Serde, Debug)]

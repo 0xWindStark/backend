@@ -1,5 +1,5 @@
 #[derive(Drop, Copy, Serde, Introspect)]
 pub struct Coordinates {
-    x: u32,
-    y: u32
+    x: u8,
+    y: u8
 }

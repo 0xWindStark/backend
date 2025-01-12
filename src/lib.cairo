@@ -1,5 +1,5 @@
 mod interfaces {
-    mod pragma_vrf;
+
 }
 
 mod models {

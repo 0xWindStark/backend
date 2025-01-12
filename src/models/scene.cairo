@@ -1,11 +1,11 @@
 use starknet::ContractAddress;
-use starknet::Storage::Map;
-use super::coordinates::Coordinates;
+use starknet::storage::Map;
 
 #[derive(Copy, Drop, Serde, Debug)]
 #[dojo::model]
 pub struct Scene {
     #[key]
     pub player: ContractAddress,
-    pub map: Map<Coordinates, u8>,
+    level: u8,
+    pub map: Map<u8, Map<u8, u8>>,
 }
