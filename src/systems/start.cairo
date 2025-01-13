@@ -8,13 +8,14 @@ mod start_action {
     use super::IStartAction;
     use starknet::{ContractAddress, get_caller_address};
     use windstark::models::{
-        coordinates::Coordinates, enemy::Enemy, player_position::PlayerPosition, scene::Scene
-    }
+        coordinates::Coordinates, enemy::Enemy, player_position::PlayerPosition, scene::Scene, corridor::Corridor
+    };
     use origami_map::map::MapTrait;
+    use dojo::model::{ModelStorage, ModelValueStorage};
 
-    const SIDE: u32 = 15;
+    const SIDE: u8 = 15;
     const BASE_ENEMY_COUNT: u32 = 5;
-    const ENEMY_INCREASE_RATE: f32 = 20;
+    const ENEMY_INCREASE_RATE: u32 = 20;
 
     #[abi(embed_v0)]
     impl StartActionImpl of IStartAction<ContractState> {
@@ -41,17 +42,19 @@ mod start_action {
 
             // step 2: spawn player on bottom-left most 1 path
 
+            let side_u32: u32 = SIDE.into();
+
             for i in 1..13_u32 {
                 for j in 1..13_u32 {
                     let x: u32 = 14 - i;
                     let y: u32 = j;
 
-                    let index = y * SIDE + x;
+                    let index = y * side_u32 + x;
 
                     let mut pos: u256 = 1;
-                    for a in 0..index {
+                    for _a in 0..index {
                         pos = pos * 2;
-                    }
+                    };
 
                     let grid_u256: u256 = map.grid.into();
 
@@ -82,26 +85,26 @@ mod start_action {
                         break;
                     }
                 }
-            }
+            };
 
             //step 3: create level clear corridor
 
             for i in 1..13_u32 {
-                for j in 1...13_u32 {
+                for j in 1..13_u32 {
                     let x: u32 = i;
                     let y: u32 = 14 - j;
 
-                    let index = y * SIDE + x;
+                    let index = y * side_u32 + x;
 
                     let mut pos: u256 = 1;
-                    for a in 0..index {
+                    for _a in 0..index {
                         pos = pos * 2;
-                    }
+                    };
 
                     let grid_u256: u256 = map.grid.into();
 
                     if (grid_u256 & pos) != 0 && (grid_u256 & pos) == pos {
-                        let corridor = CorridorPosition {
+                        let corridor = Corridor {
                             player,
                             pos: Coordinates {
                                 x: x + 1,
@@ -120,7 +123,7 @@ mod start_action {
     #[generate_trait]
     impl InternalImpl of InternalTrait {
         fn world_default(self: @ContractState) -> dojo::world::WorldStorage {
-            self.world(@"windstark");
+            self.world(@"windstark")
         }
     }
 }

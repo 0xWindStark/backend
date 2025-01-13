@@ -1,7 +1,7 @@
 use starknet::ContractAddress;
 use super::coordinates::Coordinates;
 
-#[derive(Copy, Drop, Serde, Debug)]
+#[derive(Copy, Drop, Serde)]
 #[dojo::model]
 pub struct PlayerPosition {
     #[key]

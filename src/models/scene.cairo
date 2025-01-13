@@ -1,7 +1,7 @@
 use starknet::ContractAddress;
 use origami_map::map::Map;
 
-#[derive(Copy, Drop, Serde, Debug)]
+#[derive(Copy, Drop, Serde)]
 #[dojo::model]
 pub struct Scene {
     #[key]

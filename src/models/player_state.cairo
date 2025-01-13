@@ -1,6 +1,6 @@
 use starknet::ContractAddress;
 
-#[derive(Copy, Drop, Serde, Debug)]
+#[derive(Copy, Drop, Serde)]
 #[dojo::model]
 pub struct PlayerState {
     #[key]

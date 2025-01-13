@@ -23,9 +23,21 @@ version = "2.8.4"
 source = "git+https://github.com/dojoengine/dojo?tag=v1.0.9#04b5f025d998eee19cd21d33bd8a992498a73160"
 
 [[package]]
-name = "dojo_starter"
+name = "origami_map"
+version = "1.0.0-rc.2"
+source = "git+https://github.com/dojoengine/origami#8e9a2bd3a3c0624102243d3956b31809aa532581"
+
+[[package]]
+name = "origami_random"
+version = "1.0.0-rc.2"
+source = "git+https://github.com/dojoengine/origami#8e9a2bd3a3c0624102243d3956b31809aa532581"
+
+[[package]]
+name = "windstark"
 version = "1.0.9"
 dependencies = [
  "dojo",
  "dojo_cairo_test",
+ "origami_map",
+ "origami_random",
 ]
