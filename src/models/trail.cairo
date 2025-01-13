@@ -6,5 +6,5 @@ use super::coordinates::Coordinates;
 pub struct Trail {
     #[key]
     pub player: ContractAddress,
-    pub path: Map<u8, Coordinates>,
+    pub path: Array<Coordinates>,
 }

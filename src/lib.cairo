@@ -1,10 +1,12 @@
-mod interfaces {
+// mod interfaces {
 
-}
+// }
 
 mod models {
     mod coordinates;
+    mod corridor;
     mod directions;
+    mod enemy_position;
     mod enemy;
     mod player_position;
     mod player_state;
@@ -18,6 +20,6 @@ mod systems {
     mod start;
 }
 
-mod utils {
+// mod utils {
 
-}
+// }

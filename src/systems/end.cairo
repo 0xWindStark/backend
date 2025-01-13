@@ -1,6 +1,6 @@
-#[dojo::interface]
-trait IEndAction {
-    fn end(ref world: IWorldDispatcher);
+#[starknet::interface]
+trait IEndAction<T> {
+    fn end(ref self: T);
 }
 
 #[dojo::contract]
@@ -13,7 +13,7 @@ mod end_action {
 
     #[abi(embed_v0)]
     impl EndActionImpl of IEndAction<ContractState> {
-        fn end(ref world: IWorldDispatcher) {
+        fn end(ref self: ContractState) {
             
         }
     }

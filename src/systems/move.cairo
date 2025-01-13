@@ -1,6 +1,6 @@
-#[dojo::interface]
-trait IMoveAction {
-    fn move(ref world: IWorldDispatcher, direction: u8);
+#[starknet::interface]
+trait IMoveAction<T> {
+    fn move(ref self: T, direction: u8);
 }
 
 #[dojo::contract]
@@ -13,7 +13,7 @@ mod move_action {
 
     #[abi(embed_v0)]
     impl MoveActionImpl of IMoveAction<ContractState> {
-        fn move(ref world: IWorldDispatcher, direction: u8) {
+        fn move(ref self: ContractState, direction: u8) {
             
         }
     }

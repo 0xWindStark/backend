@@ -1,11 +1,10 @@
-use starknet::ContractAddress;
 use super::coordinates::Coordinates;
 
 #[derive(Copy, Drop, Serde, Debug)]
 #[dojo::model]
-pub struct PlayerPosition {
+pub struct EnemyPosition {
     #[key]
-    pub player: ContractAddress,
+    pub id: u32,
     pub small_pos: Coordinates,
     pub big_pos: Coordinates,
     pub pos: Coordinates

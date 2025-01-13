@@ -3,9 +3,8 @@ use super::coordinates::Coordinates;
 
 #[derive(Copy, Drop, Serde, Debug)]
 #[dojo::model]
-pub struct Enemy {
+pub struct CorridorPosition {
     #[key]
     pub player: ContractAddress,
-    pub enemy_count: u8,
-    pub enemies: Array<u32>
+    pub pos: Coordinates,
 }
