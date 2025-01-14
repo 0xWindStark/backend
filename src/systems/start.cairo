@@ -11,7 +11,7 @@ mod start_action {
         coordinates::Coordinates, enemy::Enemy, player_position::PlayerPosition, scene::Scene, corridor::Corridor
     };
     use origami_map::map::MapTrait;
-    use dojo::model::{ModelStorage, ModelValueStorage};
+    use dojo::model::{ModelStorage, ModelValueStorage}; 
 
     const SIDE: u8 = 15;
     const BASE_ENEMY_COUNT: u32 = 5;
@@ -20,10 +20,10 @@ mod start_action {
     #[abi(embed_v0)]
     impl StartActionImpl of IStartAction<ContractState> {
         fn start(ref self: ContractState) {
-            // step 1: create scene
-
             let mut world = self.world_default();
             let player = get_caller_address();
+
+            // step 1: create scene
 
             let mut map = MapTrait::new_maze(SIDE, SIDE, 0, 'REWIND');
             // let postion = 1;
@@ -60,8 +60,8 @@ mod start_action {
 
                     if (grid_u256 & pos) != 0 && (grid_u256 & pos) == pos {
                         let small_pos = Coordinates {
-                            x: 1,
-                            y: 1
+                            x: 2,
+                            y: 2
                         };
 
                         let big_pos = Coordinates {
@@ -70,8 +70,8 @@ mod start_action {
                         };
 
                         let pos = Coordinates {
-                            x: x * 3 + 1,
-                            y: y * 3 + 1
+                            x: (x * 3) + 2,
+                            y: (y * 3) + 2
                         };
 
                         let player_position = PlayerPosition {
@@ -107,8 +107,8 @@ mod start_action {
                         let corridor = Corridor {
                             player,
                             pos: Coordinates {
-                                x: x + 1,
-                                y: y + 1
+                                x: x + 2,
+                                y: y + 2
                             }
                         };
 
