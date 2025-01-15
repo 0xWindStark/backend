@@ -8,10 +8,17 @@ edition = "2024_07"
 sierra-replace-ids = true
 
 [scripts]
-migrate = "sozo build && sozo migrate"                          # scarb run migrate
-start = "sozo execute windstark-start_action start --wait"      # scarb run start
-move = "sozo execute windstark-move_action move -c 1 --wait"    # scarb run move
-end = "sozo execute windstark-end_action end --wait"            # scarb run end
+migrate = "sozo build && sozo migrate"                                  # scarb run migrate
+start = "sozo execute windstark-start_action start --wait"              # scarb run start
+move_up = "sozo execute windstark-move_action move -c 1 --wait"         # scarb run move_up
+move_upleft = "sozo execute windstark-move_action move -c 2 --wait"     # scarb run move_upleft
+move_left = "sozo execute windstark-move_action move -c 3 --wait"       # scarb run move_left
+move_downleft = "sozo execute windstark-move_action move -c 4 --wait"   # scarb run move_downleft
+move_down = "sozo execute windstark-move_action move -c 5 --wait"       # scarb run move_down
+move_downright = "sozo execute windstark-move_action move -c 6 --wait"  # scarb run move_downright
+move_right = "sozo execute windstark-move_action move -c 7 --wait"      # scarb run move_right
+move_upright = "sozo execute windstark-move_action move -c 8 --wait"    # scarb run move_upright
+end = "sozo execute windstark-end_action end --wait"                    # scarb run end
 
 [dependencies]
 dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.9" }
