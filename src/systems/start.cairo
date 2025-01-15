@@ -6,12 +6,12 @@ trait IStartAction<T> {
 #[dojo::contract]
 mod start_action {
     use super::IStartAction;
-    use starknet::{ContractAddress, get_caller_address};
+    use starknet::{get_caller_address};
     use windstark::models::{
-        coordinates::Coordinates, enemy::Enemy, player_position::PlayerPosition, scene::Scene, corridor::Corridor
+        coordinates::Coordinates, player_position::PlayerPosition, scene::Scene, corridor::Corridor,
     };
     use origami_map::map::MapTrait;
-    use dojo::model::{ModelStorage, ModelValueStorage}; 
+    use dojo::model::{ModelStorage};
 
     const SIDE: u8 = 15;
     const BASE_ENEMY_COUNT: u32 = 5;
@@ -23,24 +23,13 @@ mod start_action {
             let mut world = self.world_default();
             let player = get_caller_address();
 
-            // step 1: create scene
-
             let mut map = MapTrait::new_maze(SIDE, SIDE, 0, 'REWIND');
-            // let postion = 1;
-            // let order = 0;
-            // map.open_with_corridor(postion, order);
 
             let old_scene: Scene = world.read_model(player);
 
-            let new_scene = Scene {
-                player,
-                level: old_scene.level + 1,
-                map: map.grid,
-            };
+            let new_scene = Scene { player, level: old_scene.level + 1, map: map.grid };
 
             world.write_model(@new_scene);
-
-            // step 2: spawn player on bottom-left most 1 path
 
             let side_u32: u32 = SIDE.into();
 
@@ -59,35 +48,19 @@ mod start_action {
                     let grid_u256: u256 = map.grid.into();
 
                     if (grid_u256 & pos) != 0 && (grid_u256 & pos) == pos {
-                        let small_pos = Coordinates {
-                            x: 2,
-                            y: 2
-                        };
+                        let small_pos = Coordinates { x: 2, y: 2 };
 
-                        let big_pos = Coordinates {
-                            x,
-                            y
-                        };
+                        let big_pos = Coordinates { x, y };
 
-                        let pos = Coordinates {
-                            x: (x * 3) + 2,
-                            y: (y * 3) + 2
-                        };
+                        let pos = Coordinates { x: (x * 3) + 2, y: (y * 3) + 2 };
 
-                        let player_position = PlayerPosition {
-                            player,
-                            small_pos,
-                            big_pos,
-                            pos
-                        };
+                        let player_position = PlayerPosition { player, small_pos, big_pos, pos };
 
                         world.write_model(@player_position);
                         break;
                     }
                 }
             };
-
-            //step 3: create level clear corridor
 
             for i in 1..13_u32 {
                 for j in 1..13_u32 {
@@ -104,13 +77,7 @@ mod start_action {
                     let grid_u256: u256 = map.grid.into();
 
                     if (grid_u256 & pos) != 0 && (grid_u256 & pos) == pos {
-                        let corridor = Corridor {
-                            player,
-                            pos: Coordinates {
-                                x: x + 2,
-                                y: y + 2
-                            }
-                        };
+                        let corridor = Corridor { player, pos: Coordinates { x: x + 2, y: y + 2 } };
 
                         world.write_model(@corridor);
                         break;

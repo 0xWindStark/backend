@@ -7,5 +7,5 @@ pub struct EnemyPosition {
     pub id: felt252,
     pub small_pos: Coordinates,
     pub big_pos: Coordinates,
-    pub pos: Coordinates
+    pub pos: Coordinates,
 }

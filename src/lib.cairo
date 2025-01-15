@@ -3,23 +3,22 @@
 // }
 
 mod models {
-    mod coordinates;
-    mod corridor;
-    mod directions;
-    mod enemy_position;
-    mod enemy;
-    mod player_position;
-    mod player_state;
-    mod scene;
-    mod trail;  
+    pub mod coordinates;
+    pub mod corridor;
+    pub mod enemy_position;
+    pub mod enemy;
+    pub mod player_position;
+    pub mod player_state;
+    pub mod scene;
+    pub mod trail;
 }
 
 mod systems {
-    mod end;
-    mod move;
-    mod start;
+    pub mod end;
+    pub mod move;
+    pub mod start;
 }
 
-// mod utils {
-
-// }
+mod utils {
+    pub mod coordinates_to_felt;
+}

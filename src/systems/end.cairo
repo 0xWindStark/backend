@@ -6,11 +6,12 @@ trait IEndAction<T> {
 #[dojo::contract]
 mod end_action {
     use super::IEndAction;
-    use starknet::{ContractAddress, get_caller_address};
+    use starknet::{get_caller_address};
     use windstark::models::{
-        coordinates::Coordinates, enemy::Enemy, player_position::PlayerPosition, scene::Scene, corridor::Corridor, player_state::PlayerState, trail::Trail
+        coordinates::Coordinates, enemy::Enemy, player_position::PlayerPosition, scene::Scene,
+        corridor::Corridor, player_state::PlayerState, trail::Trail,
     };
-    use dojo::model::{ModelStorage, ModelValueStorage}; 
+    use dojo::model::{ModelStorage};
 
     #[abi(embed_v0)]
     impl EndActionImpl of IEndAction<ContractState> {
@@ -23,34 +24,17 @@ mod end_action {
 
             let old_scene: Scene = world.read_model(player);
 
-            let new_corridor = Corridor {
-                player,
-                pos: Coordinates { x: 0, y: 0 }
-            };
-            let new_enemy = Enemy {
-                player,
-                enemy_count: 0,
-                enemies: empty_enemies
-            };
+            let new_corridor = Corridor { player, pos: Coordinates { x: 0, y: 0 } };
+            let new_enemy = Enemy { player, enemy_count: 0, enemies: empty_enemies };
             let new_player_position = PlayerPosition {
                 player,
                 small_pos: Coordinates { x: 0, y: 0 },
                 big_pos: Coordinates { x: 0, y: 0 },
-                pos: Coordinates { x: 0, y: 0 }
+                pos: Coordinates { x: 0, y: 0 },
             };
-            let new_player_state = PlayerState {
-                player,
-                state: false
-            };
-            let new_scene = Scene {
-                player,
-                level: old_scene.level,
-                map: 0
-            };
-            let new_trail = Trail {
-                player,
-                path: empty_path
-            };
+            let new_player_state = PlayerState { player, state: false };
+            let new_scene = Scene { player, level: old_scene.level, map: 0 };
+            let new_trail = Trail { player, path: empty_path };
 
             world.write_model(@new_corridor);
             world.write_model(@new_enemy);
