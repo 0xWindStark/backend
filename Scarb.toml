@@ -8,13 +8,13 @@ edition = "2024_07"
 sierra-replace-ids = true
 
 [scripts]
-migrate = "sozo build && sozo migrate"                      # scarb run migrate
-spawn = "sozo execute dojo_starter-actions spawn --wait"    # scarb run spawn
-move = "sozo execute dojo_starter-actions move -c 1 --wait" # scarb run move
+migrate = "sozo build && sozo migrate"                          # scarb run migrate
+start = "sozo execute windstark-start_action start --wait"      # scarb run start
+move = "sozo execute windstark-move_action move -c 1 --wait"    # scarb run move
+end = "sozo execute windstark-end_action end --wait"            # scarb run end
 
 [dependencies]
 dojo = { git = "https://github.com/dojoengine/dojo", tag = "v1.0.9" }
-origami_random = { git = "https://github.com/dojoengine/origami" }
 origami_map = { git = "https://github.com/dojoengine/origami" }
 
 [[target.starknet-contract]]
