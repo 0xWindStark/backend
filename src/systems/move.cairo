@@ -20,12 +20,25 @@ mod move_action {
             let mut world = self.world_default();
             let player = get_caller_address();
 
-            let old_player: PlayerPosition = world.read_model(player);
-
             if direction >= 1 && direction <= 8 {
                 self._move_player(direction);
+
+                let player_pos: PlayerPosition = world.read_model(player);
+                let trail: Trail = world.read_model(player);
+                let path = trail.path;
+
+                let mut state: bool = false;
+
+                for pos in path {
+                    if pos == player_pos.pos {
+                        state = true;
+                        break;
+                    }
+                };
+
+                world.write_model(@PlayerState { player, state });
             }
-            // self._move_enemy();
+            self._move_enemy();
         }
     }
 
@@ -483,5 +496,7 @@ mod move_action {
                 world.write_model(@Trail { player, path });
             }
         }
+
+        fn _move_enemy(ref self: ContractState) {}
     }
 }
