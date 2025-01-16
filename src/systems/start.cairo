@@ -52,7 +52,7 @@ mod start_action {
 
                         let big_pos = Coordinates { x, y };
 
-                        let pos = Coordinates { x: (x * 3) + 2, y: (y * 3) + 2 };
+                        let pos = Coordinates { x: (x * 5) + 2, y: (y * 5) + 2 };
 
                         let player_position = PlayerPosition { player, small_pos, big_pos, pos };
 
@@ -77,7 +77,7 @@ mod start_action {
                     let grid_u256: u256 = map.grid.into();
 
                     if (grid_u256 & pos) != 0 && (grid_u256 & pos) == pos {
-                        let corridor = Corridor { player, pos: Coordinates { x: x + 2, y: y + 2 } };
+                        let corridor = Corridor { player, pos: Coordinates { x: (x * 5) + 2, y: (y * 5) + 2 } };
 
                         world.write_model(@corridor);
                         break;
